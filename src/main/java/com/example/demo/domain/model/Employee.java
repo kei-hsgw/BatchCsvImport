@@ -1,15 +1,20 @@
 package com.example.demo.domain.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
 @Data
+@Entity
 public class Employee {
 
 	/** ID */
 	@NotNull
+	@Id
 	private Integer id;
 	
 	/** 名前 */
@@ -24,6 +29,7 @@ public class Employee {
 	private Integer gender;
 	
 	/** 性別(文字列) */
+	@Transient
 	private String genderString;
 	
 	/** 性別の文字列を数値に変換 */
