@@ -1,17 +1,23 @@
 package com.example.demo.domain.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Data
 public class Employee {
 
 	/** ID */
+	@NotNull
 	private Integer id;
 	
 	/** 名前 */
+	@NotNull
 	private String name;
 	
 	/** 年齢 */
+	@Min(20)
 	private Integer age;
 	
 	/** 性別(数値) */
