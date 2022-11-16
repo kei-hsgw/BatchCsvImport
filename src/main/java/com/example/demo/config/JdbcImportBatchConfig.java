@@ -45,21 +45,21 @@ public class JdbcImportBatchConfig extends BaseConfig {
 	@Bean
 	public Step csvImportJdbcStep() {
 		
-		return this.stepBuilderFactory.get("CsvImportJdbcStep")
-				.<Employee, Employee>chunk(10)
-				.reader(csvReader()).listener(this.readListener)
-				.processor(genderConvertProcessor).listener(this.processListener)
-				.writer(jdbcWriter()).listener(this.writeListener)
-				.build();
+		return this.stepBuilderFactory.get("CsvImportJdbcStep") // Builderの取得
+				.<Employee, Employee>chunk(10) // Chunkの設定
+				.reader(csvReader()).listener(this.readListener) // reader
+				.processor(compositeProcessor()).listener(this.processListener) // processor
+				.writer(jdbcWriter()).listener(this.writeListener) // writer
+				.build(); // Stepの生成
 	}
 	
 	/** Jobの生成(JDBC) */
 	@Bean("JdbcJob")
 	public Job csvImportJdbcJob() {
 		
-		return this.jobBuilderFactory.get("CsvImportJdbcJob")
-				.incrementer(new RunIdIncrementer())
-				.start(csvImportJdbcStep())
-				.build();
+		return this.jobBuilderFactory.get("CsvImportJdbcJob") // Builderの取得
+				.incrementer(new RunIdIncrementer()) // IDのインクリメント
+				.start(csvImportJdbcStep()) // 最初のStep
+				.build(); // Jobの生成
 	}
 }
