@@ -1,14 +1,23 @@
 package com.example.demo.config;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.batch.core.Job;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
-import org.junit.jupiter.api.Test;
+@Configuration
+public class TestConfig {
 
-class TestConfig {
-
-	@Test
-	void test() {
-		fail("まだ実装されていません");
+	@Autowired
+	@Qualifier("JdbcJob")
+	private Job jdbcJob;
+	
+	@Bean
+	@Primary
+	public Job testJob() {
+		
+		return jdbcJob;
 	}
-
 }
